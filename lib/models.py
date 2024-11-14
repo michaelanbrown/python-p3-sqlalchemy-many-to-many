@@ -1,5 +1,3 @@
-# many_to_many/models.py
-
 from sqlalchemy import create_engine, func
 from sqlalchemy import ForeignKey, Table, Column, Integer, String, DateTime, MetaData
 from sqlalchemy.orm import relationship, backref
@@ -44,3 +42,11 @@ class Game(Base):
     genre = Column(String())
     platform = Column(String())
     price = Column(Integer())
+
+    reviews = relationship('Review', backref=backref('game'))
+    users = relationship('User', secondary=game_user, back_populates='games')
+
+    def __repr__(self):
+        return f'Game(id={self.id}, ' + \
+            f'title={self.title}, ' + \
+            f'platform={self.platform})'
