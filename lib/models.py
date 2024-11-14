@@ -54,3 +54,17 @@ class User(Base):
         return f'User(id={self.id}, ' + \
             f'name={self.name})'
     
+class GameUser(Base):
+    __tablename__ = "game_users"
+
+    id = Column(Integer(), primary_key=True)
+    game_id = Column(ForeignKey('games.id'))
+    user_id = Column(ForeignKey('users.id'))
+
+    game = relationship('Game', back_populates='game_users')
+    user = relationship('User', back_populates='game_users')
+
+    def __repr__(self):
+        return f'GameUser(game_id={self.game_id}, ' + \
+            f'user_id={self.user_id})'
+    
