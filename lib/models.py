@@ -32,7 +32,7 @@ class Review(Base):
     id = Column(Integer(), primary_key=True)
     score = Column(Integer())
     comment = Column(String())
-    
+    user_id = Column(Integer(), ForeignKey('users.id'))
     game_id = Column(Integer(), ForeignKey('games.id'))
 
     def __repr__(self):
